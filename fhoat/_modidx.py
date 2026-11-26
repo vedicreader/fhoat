@@ -2,8 +2,8 @@
 
 d = { 'settings': { 'branch': 'main',
                 'doc_baseurl': '/fhoat',
-                'doc_host': 'https://Karthik777.github.io',
-                'git_url': 'https://github.com/Karthik777/fhoat',
+                'doc_host': 'https://vedicreader.github.io',
+                'git_url': 'https://github.com/vedicreader/fhoat',
                 'lib_path': 'fhoat'},
   'syms': { 'fhoat.components': { 'fhoat.components.ABtn': ('components.html#abtn', 'fhoat/components.py'),
                                   'fhoat.components.Alert': ('components.html#alert', 'fhoat/components.py'),

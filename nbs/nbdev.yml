@@ -3,10 +3,10 @@ project:
 
 website:
   title: "fhoat"
-  site-url: "https://Karthik777.github.io/fhoat"
+  site-url: "https://vedicreader.github.io/fhoat"
   description: "Oat UI for FastHTML: a drop-in for Pico"
   repo-branch: main
-  repo-url: "https://github.com/Karthik777/fhoat"
+  repo-url: "https://github.com/vedicreader/fhoat"
 
 format-links:
   - html

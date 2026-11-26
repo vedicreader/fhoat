@@ -24,8 +24,8 @@ dependencies = ["python-fasthtml>=0.12"]
 dev = ["nbdev>=3.3", "httpx"]
 
 [project.urls]
-Repository = "https://github.com/Karthik777/fhoat"
-Documentation = "https://Karthik777.github.io/fhoat/"
+Repository = "https://github.com/vedicreader/fhoat"
+Documentation = "https://vedicreader.github.io/fhoat/"
 
 [project.entry-points.nbdev]
 fhoat = "fhoat._modidx:d"
