@@ -1,4 +1,4 @@
-"""A gallery of every component, plus pages shaped like lego's blog and vedicreader's reader. Run `python -m fhoat.demo` (port 5002).
+"""A page with every component, and pages like the lego blog and the Vedic Reader app. Run `python -m fhoat.demo` and open http://localhost:5002.
 
 Docs: https://vedicreader.github.io/fhoat/demo.html.md"""
 
@@ -8,16 +8,16 @@ Docs: https://vedicreader.github.io/fhoat/demo.html.md"""
 __all__ = ['app', 'rt', 'POSTS', 'WORKS', 'VERSE', 'DAY', 'page', 'sec', 'buttons', 'badges', 'forms', 'overlays', 'tabs',
            'table', 'people', 'index', 'post', 'post_card', 'signin', 'lego', 'work', 'verse', 'vr']
 
-# %% ../nbs/02_demo.ipynb #f76e934a
+# %% ../nbs/02_demo.ipynb #c2
 from . import *
 
-# %% ../nbs/02_demo.ipynb #795cab1b
+# %% ../nbs/02_demo.ipynb #c3
 app, rt = fast_app(oat=True, title='fhoat')
 
 def page(*c, title='fhoat'):
-    "One shell for every demo page."
-    nav = Navbar('◆ fhoat', ('Components', '/'), ('Lego', '/lego'), ('Vedic Reader', '/vr'), end=(ThemePicker(), ModeToggle()))
-    return Title(title), nav, Container(*c), PageFooter(Span('fhoat · Oat UI for FastHTML'), A('oat.ink', href='https://oat.ink'))
+    "Put `c` between the navbar and the footer that every demo page uses."
+    nav = Navbar('fhoat', ('Components', '/'), ('Lego', '/lego'), ('Vedic Reader', '/vr'), end=(ThemePicker(), ModeToggle()))
+    return Title(title), nav, Container(*c), PageFooter(Span('Made with fhoat and Oat'), A('oat.ink', href='https://oat.ink'))
 
 def sec(title, *c): return Section(H2(title, cls='mb-4'), *c, cls='mb-8')
 
@@ -30,8 +30,8 @@ def buttons():
 def badges():
     return sec('Badges and alerts', Div(Badge('New'), Badge('Draft', variant='secondary'), Badge('Live', variant='success'),
                                          Badge('Beta', variant='warning'), Badge('Down', variant='danger'), Badge('Outline', cls='outline'), cls='hstack mb-4'),
-               Div(Alert('Your changes are saved.', title='Saved', variant='success'), Alert('Disk is 90% full.', title='Heads up', variant='warning'),
-                   Alert('The payment failed.', title='Error', variant='danger'), Alert('Plain note with no variant.'), cls='vstack'))
+               Div(Alert('Your changes are saved.', title='Saved', variant='success'), Alert('The disk is 90% full.', title='Warning', variant='warning'),
+                   Alert('The payment failed.', title='Error', variant='danger'), Alert('An alert with no variant.'), cls='vstack'))
 
 def forms():
     f = Form(Field('Email', Input(type='email', name='email', placeholder='you@example.com'), hint='We never share it.'),
@@ -41,14 +41,14 @@ def forms():
              Group(Input(type='search', name='q', placeholder='Search'), Btn('Go')), hx_post='/toast', hx_swap='none')
     return sec('Forms', Grid(Card(f, header=H3('Sign up')),
                              Card(P('Range, progress and meter are plain HTML.'), Input(type='range'), Progress(value=60, max=100),
-                                  Meter(value=.7), Skeleton(2, box=True, cls='mt-4'), header=H3('Native'))))
+                                  Meter(value=.7), Skeleton(2, box=True, cls='mt-4'), header=H3('HTML inputs'))))
 
 def overlays():
-    dlg = DialogX(P('Dialogs are native <dialog>. A backdrop click or Esc closes them.'), header=H3('Delete project?'),
+    dlg = DialogX(P('This is an HTML dialog. Click outside it or press Esc to close it.'), header=H3('Delete project?'),
                   footer=(DialogClose('Cancel'), Btn('Delete', variant='danger', onclick="this.closest('dialog').close()")), id='dlg')
     dd = Dropdown('Options ▾', A('Profile', href='#'), A('Settings', href='#'), Btn('Sign out', look='ghost'))
     return sec('Overlays', Div(DialogOpen('Open dialog', id='dlg'), dd, Btn('Toast', hx_post='/toast', hx_swap='none', look='outline'),
-                               Btn('Tooltip', title='Oat turns a title into a tooltip', look='ghost'), dlg, cls='hstack'))
+                               Btn('Tooltip', title='Oat shows the title as a tooltip', look='ghost'), dlg, cls='hstack'))
 
 def tabs():
     return sec('Tabs', Tabs(('Account', P('Manage your account.')), ('Billing', P('Invoices and cards.')), ('Team', P('Invite people.'))))
@@ -64,23 +64,23 @@ def people():
 
 @rt('/')
 def index():
-    hero = Hero('Oat UI for FastHTML', sub='Semantic HTML that looks finished. One switch: fast_app(oat=True). Themes when you want them.',
-                eyebrow='a Pico replacement', actions=(ABtn('See Lego', href='/lego'), ABtn('See Vedic Reader', href='/vr', look='outline')))
+    hero = Hero('Oat styles for FastHTML', sub='Pass oat=True to fast_app. Your HTML tags then use Oat styles.',
+                eyebrow='fhoat demo', actions=(ABtn('See Lego', href='/lego'), ABtn('See Vedic Reader', href='/vr', look='outline')))
     more = sec('More', Div(ButtonGroup(Btn('Day', look='outline'), Btn('Week', look='outline'), Btn('Month', look='outline')),
                            Spinner(size='sm'), Btn('Hover me', look='ghost', **tip('A tooltip from title=', 'bottom')), cls='hstack mb-4'),
                Grid(Card(Upload(), header=H4('Upload')), Card(TagInput(value='oat, fasthtml'), header=H4('Tags'))))
     return page(hero, buttons(), badges(), forms(), overlays(), tabs(), table(), people(), more, OatBusy())
 
 @rt('/toast')
-def post(): return toast_hdr('Saved. Toasts ride on HX-Trigger.', 'Done', 'success')
+def post(): return toast_hdr('Your changes are saved.', 'Saved', 'success')
 
-# ── Lego-shaped: a blog front, a sign-in dialog, a dashboard ─────────────────
-POSTS = [('Connect order', 'Blocks connect in order; auth goes last.', 'Architecture'),
+# ── Pages like lego: a blog, a sign-in dialog and a dashboard ───────────────
+POSTS = [('Connect order', 'Blocks connect in order. The auth block connects last.', 'Architecture'),
          ('litesearch', 'Full-text and vector search in one SQLite file.', 'Search'),
-         ('The blog block', 'Markdown posts with frontmatter, seeded on start.', 'Blocks'),
-         ('dockeasy', 'One command from a folder to a container.', 'Deploy'),
-         ('gheasy', 'Secrets and variables pushed from .env.', 'Tools'),
-         ('vpseasy', 'A VPS, a tunnel and a deploy, scripted.', 'Deploy')]
+         ('The blog block', 'Markdown posts with frontmatter. The app loads them when it starts.', 'Blocks'),
+         ('dockeasy', 'One command makes a container from a folder.', 'Deploy'),
+         ('gheasy', 'Push secrets and variables from .env to GitHub.', 'Tools'),
+         ('vpseasy', 'One script sets up a VPS, a tunnel and a deploy.', 'Deploy')]
 
 def post_card(t, d, tag): return A(Badge(tag, variant='secondary', cls='mb-2'), H3(t), P(d), href='#', cls='card')
 
@@ -92,16 +92,16 @@ def signin():
 @rt('/lego')
 def lego():
     feat = Card(Span('Featured', cls='eyebrow'), H2('VedicReader, built from blocks'),
-                P('How one FastHTML app grew into eight packages, a block at a time.'), footer=(ABtn('Read', href='#', size='small'), Span('6 min', cls='text-light')))
+                P('How we split one FastHTML app into eight packages.'), footer=(ABtn('Read', href='#', size='small'), Span('6 min', cls='text-light')))
     side = Div(*[Card(H4(t), P(d, cls='text-light'), cls='mb-4') for t, d, _ in POSTS[:2]])
     kpis = Grid(*[Card(Small(k, cls='text-light'), H2(v), Badge(c, variant=bv)) for k, v, c, bv in
                   [('Visitors', '12,480', '+8%', 'success'), ('Sign-ups', '342', '+3%', 'success'), ('Errors', '17', '−2', 'secondary'), ('p95', '84 ms', '+6 ms', 'warning')]], col_min='12rem')
-    return page(Hero('Build webapps one block at a time', sub='A FastHTML + Oat starter. Clone it, connect your blocks, ship it.',
+    return page(Hero('Build web apps from blocks', sub='A starter app for FastHTML and Oat. Clone it, connect your blocks and deploy it.',
                      actions=(DialogOpen('Sign in', id='signin'), ABtn('GitHub', href='#', look='outline'))),
                 sec('Latest', Row(Column(feat, span=8), Column(side, span=4))), sec('All posts', Grid(*[post_card(*p) for p in POSTS], col_min='16rem')),
                 sec('Dashboard', kpis), signin(), title='Lego')
 
-# ── Vedic Reader-shaped: a shelf, a verse, a day ─────────────────────────────
+# ── Pages like Vedic Reader: a shelf, a verse and the day ───────────────────
 WORKS = [('Bhagavad Gītā', 'भगवद्गीता', '18 chapters · 700 verses'), ('Viṣṇu Sahasranāma', 'विष्णुसहस्रनाम', '108 verses'),
          ('Tirukkuṟaḷ', 'திருக்குறள்', '133 chapters · 1,330 kuṟaḷ'), ('Śrī Sūktam', 'श्रीसूक्तम्', '15 mantras'),
          ('Gaṇapati Atharvaśīrṣa', 'गणपत्यथर्वशीर्षम्', '10 sections'), ('Puruṣa Sūktam', 'पुरुषसूक्तम्', '16 mantras')]
@@ -127,5 +127,5 @@ def vr():
                 sec('Continue reading', Row(Column(verse(), span=8), Column(day, span=4))),
                 sec('Shelf', Grid(*[work(*w) for w in WORKS], col_min='15rem')), title='Vedic Reader')
 
-# %% ../nbs/02_demo.ipynb #3236e9f5
+# %% ../nbs/02_demo.ipynb #c5
 if __name__ == '__main__': serve(appname='fhoat.demo', port=5002)
