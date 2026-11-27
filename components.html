@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Oat’s components as FastHTML functions, with the same names as fasthtml.pico where Pico has one.">
+
+<title>components – fhoat</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-f803fa4e565d46961d2a1845e6c2e3f5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="components – fhoat">
+<meta property="og:description" content="Oat’s components as FastHTML functions, with the same names as fasthtml.pico where Pico has one.">
+<meta property="og:site_name" content="fhoat">
+<meta name="twitter:title" content="components – fhoat">
+<meta name="twitter:description" content="Oat’s components as FastHTML functions, with the same names as fasthtml.pico where Pico has one.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">fhoat</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" aria-label="Toolbar">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./components.html">components</a></li></ol></nav>
+        <a class="flex-grow-1" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto" aria-label="Section">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fhoat</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./core.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">core</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./components.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">components</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">demo</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#picos-names" id="toc-picos-names" class="nav-link active" data-scroll-target="#picos-names">Pico’s names</a></li>
+  <li><a href="#dialogs-and-buttons" id="toc-dialogs-and-buttons" class="nav-link" data-scroll-target="#dialogs-and-buttons">Dialogs and buttons</a></li>
+  <li><a href="#content" id="toc-content" class="nav-link" data-scroll-target="#content">Content</a></li>
+  <li><a href="#forms" id="toc-forms" class="nav-link" data-scroll-target="#forms">Forms</a></li>
+  <li><a href="#tabs-menus-and-the-sidebar" id="toc-tabs-menus-and-the-sidebar" class="nav-link" data-scroll-target="#tabs-menus-and-the-sidebar">Tabs, menus and the sidebar</a></li>
+  <li><a href="#page-chrome-and-the-readers-controls" id="toc-page-chrome-and-the-readers-controls" class="nav-link" data-scroll-target="#page-chrome-and-the-readers-controls">Page chrome and the reader’s controls</a></li>
+  <li><a href="#toasts" id="toc-toasts" class="nav-link" data-scroll-target="#toasts">Toasts</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/vedicreader/fhoat/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="components.html.md"><i class="bi bi-file-code"></i>Markdown</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">components</h1>
+</div>
+
+<div>
+  <div class="description">
+    Oat’s components as FastHTML functions, with the same names as <code>fasthtml.pico</code> where Pico has one.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<p>Plain tags need no helper: <code>Button</code>, <code>A</code>, <code>Input</code>, <code>Select</code>, <code>Textarea</code>, <code>Table</code>, <code>Dialog</code>, <code>Details</code>, <code>Progress</code>, <code>Meter</code> and the headings are styled as they are. A <code>Div</code> has no look of its own; give it a class (<code>card</code>, <code>row</code>, <code>hstack</code>, <code>vstack</code>, <code>container</code>) or use the functions below. An accordion is plain <code>Details(Summary('Title'), P('Body'))</code>.</p>
+<section id="picos-names" class="level2">
+<h2 class="anchored" data-anchor-id="picos-names">Pico’s names</h2>
+<div id="03f2753e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.419271+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.562318+00:00&quot;,&quot;total&quot;:0.14305104700000015}}" data-execution_count="5">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L71" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="oatbusy" class="level3">
+<h3 class="anchored" data-anchor-id="oatbusy">OatBusy</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> OatBusy():</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Mark the element of a running htmx request <code>aria-busy</code>, which Oat draws as a spinner.</em></p>
+</section>
+</div>
+<div id="ec9b9cac" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.562468+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.569475+00:00&quot;,&quot;total&quot;:0.007009158999998988}}" data-execution_count="6">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L66" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="dialogx" class="level3">
+<h3 class="anchored" data-anchor-id="dialogx">DialogX</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> DialogX(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, <span class="bu">open</span>:NoneType<span class="op">=</span><span class="va">None</span>, header:NoneType<span class="op">=</span><span class="va">None</span>, footer:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">id</span>:NoneType<span class="op">=</span><span class="va">None</span>, closedby:<span class="bu">str</span><span class="op">=</span><span class="st">'any'</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    form:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span>, target_id:NoneType<span class="op">=</span><span class="va">None</span>, hx_vals:NoneType<span class="op">=</span><span class="va">None</span>, hx_target:NoneType<span class="op">=</span><span class="va">None</span>, cls:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    title:NoneType<span class="op">=</span><span class="va">None</span>, style:NoneType<span class="op">=</span><span class="va">None</span>, accesskey:NoneType<span class="op">=</span><span class="va">None</span>, contenteditable:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">dir</span>:NoneType<span class="op">=</span><span class="va">None</span>, draggable:NoneType<span class="op">=</span><span class="va">None</span>, enterkeyhint:NoneType<span class="op">=</span><span class="va">None</span>, hidden:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    inert:NoneType<span class="op">=</span><span class="va">None</span>, inputmode:NoneType<span class="op">=</span><span class="va">None</span>, lang:NoneType<span class="op">=</span><span class="va">None</span>, popover:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    spellcheck:NoneType<span class="op">=</span><span class="va">None</span>, tabindex:NoneType<span class="op">=</span><span class="va">None</span>, translate:NoneType<span class="op">=</span><span class="va">None</span>, hx_get:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    hx_post:NoneType<span class="op">=</span><span class="va">None</span>, hx_put:NoneType<span class="op">=</span><span class="va">None</span>, hx_delete:NoneType<span class="op">=</span><span class="va">None</span>, hx_patch:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    hx_trigger:NoneType<span class="op">=</span><span class="va">None</span>, hx_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_swap_oob:NoneType<span class="op">=</span><span class="va">None</span>, hx_include:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    hx_select:NoneType<span class="op">=</span><span class="va">None</span>, hx_select_oob:NoneType<span class="op">=</span><span class="va">None</span>, hx_indicator:NoneType<span class="op">=</span><span class="va">None</span>, hx_push_url:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    hx_confirm:NoneType<span class="op">=</span><span class="va">None</span>, hx_disable:NoneType<span class="op">=</span><span class="va">None</span>, hx_replace_url:NoneType<span class="op">=</span><span class="va">None</span>, hx_disabled_elt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    hx_ext:NoneType<span class="op">=</span><span class="va">None</span>, hx_headers:NoneType<span class="op">=</span><span class="va">None</span>, hx_history:NoneType<span class="op">=</span><span class="va">None</span>, hx_history_elt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    hx_inherit:NoneType<span class="op">=</span><span class="va">None</span>, hx_params:NoneType<span class="op">=</span><span class="va">None</span>, hx_preserve:NoneType<span class="op">=</span><span class="va">None</span>, hx_prompt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    hx_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_sync:NoneType<span class="op">=</span><span class="va">None</span>, hx_validate:NoneType<span class="op">=</span><span class="va">None</span>, hx_action:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    hx_method:NoneType<span class="op">=</span><span class="va">None</span>, hx_config:NoneType<span class="op">=</span><span class="va">None</span>, hx_ignore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_blur:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    hx_on_change:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_contextmenu:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_focus:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    hx_on_input:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_invalid:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_reset:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_select:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    hx_on_submit:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keydown:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keypress:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keyup:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    hx_on_click:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_dblclick:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mousedown:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    hx_on_mouseenter:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseleave:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mousemove:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    hx_on_mouseout:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseover:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseup:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    hx_on_wheel:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__abort:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_on_load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    hx_on__after_process_node:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_settle:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    hx_on__after_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_cleanup_element:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    hx_on__before_on_load:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_process_node:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    hx_on__before_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_send:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    hx_on__before_transition:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__config_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__confirm:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    hx_on__history_cache_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__history_cache_miss:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    hx_on__history_cache_miss_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__history_cache_miss_load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    hx_on__history_restore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_history_save:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    hx_on__no_sse_source_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__on_load_error:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    hx_on__oob_after_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__oob_before_swap:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    hx_on__oob_error_no_target:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__prompt:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__pushed_into_history:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    hx_on__replaced_in_history:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__response_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__send_abort:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    hx_on__send_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__sse_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__sse_open:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    hx_on__swap_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__target_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__timeout:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    hx_on__validation_validate:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__validation_failed:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    hx_on__validation_halted:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_abort:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_loadend:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    hx_on__xhr_loadstart:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_progress:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_init:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    hx_on__before_cleanup:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_history_update:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    hx_on__before_init:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_process:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    hx_on__before_history_restore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_history_push:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    hx_on__after_history_replace:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__error:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kw</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>An Oat dialog: header, body and footer; <code>closedby='any'</code> closes on a backdrop click; <code>form</code> wraps the parts in a dialog form.</em></p>
+</section>
+</div>
+<div id="5408d764" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.569590+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.576392+00:00&quot;,&quot;total&quot;:0.006807778000002429}}" data-execution_count="7">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L61" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="container" class="level3">
+<h3 class="anchored" data-anchor-id="container">Container</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Container(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, target_id:NoneType<span class="op">=</span><span class="va">None</span>, hx_vals:NoneType<span class="op">=</span><span class="va">None</span>, hx_target:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">id</span>:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    title:NoneType<span class="op">=</span><span class="va">None</span>, style:NoneType<span class="op">=</span><span class="va">None</span>, accesskey:NoneType<span class="op">=</span><span class="va">None</span>, contenteditable:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">dir</span>:NoneType<span class="op">=</span><span class="va">None</span>, draggable:NoneType<span class="op">=</span><span class="va">None</span>, enterkeyhint:NoneType<span class="op">=</span><span class="va">None</span>, hidden:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    inert:NoneType<span class="op">=</span><span class="va">None</span>, inputmode:NoneType<span class="op">=</span><span class="va">None</span>, lang:NoneType<span class="op">=</span><span class="va">None</span>, popover:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    spellcheck:NoneType<span class="op">=</span><span class="va">None</span>, tabindex:NoneType<span class="op">=</span><span class="va">None</span>, translate:NoneType<span class="op">=</span><span class="va">None</span>, hx_get:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    hx_post:NoneType<span class="op">=</span><span class="va">None</span>, hx_put:NoneType<span class="op">=</span><span class="va">None</span>, hx_delete:NoneType<span class="op">=</span><span class="va">None</span>, hx_patch:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    hx_trigger:NoneType<span class="op">=</span><span class="va">None</span>, hx_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_swap_oob:NoneType<span class="op">=</span><span class="va">None</span>, hx_include:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    hx_select:NoneType<span class="op">=</span><span class="va">None</span>, hx_select_oob:NoneType<span class="op">=</span><span class="va">None</span>, hx_indicator:NoneType<span class="op">=</span><span class="va">None</span>, hx_push_url:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    hx_confirm:NoneType<span class="op">=</span><span class="va">None</span>, hx_disable:NoneType<span class="op">=</span><span class="va">None</span>, hx_replace_url:NoneType<span class="op">=</span><span class="va">None</span>, hx_disabled_elt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    hx_ext:NoneType<span class="op">=</span><span class="va">None</span>, hx_headers:NoneType<span class="op">=</span><span class="va">None</span>, hx_history:NoneType<span class="op">=</span><span class="va">None</span>, hx_history_elt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    hx_inherit:NoneType<span class="op">=</span><span class="va">None</span>, hx_params:NoneType<span class="op">=</span><span class="va">None</span>, hx_preserve:NoneType<span class="op">=</span><span class="va">None</span>, hx_prompt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    hx_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_sync:NoneType<span class="op">=</span><span class="va">None</span>, hx_validate:NoneType<span class="op">=</span><span class="va">None</span>, hx_action:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    hx_method:NoneType<span class="op">=</span><span class="va">None</span>, hx_config:NoneType<span class="op">=</span><span class="va">None</span>, hx_ignore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_blur:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    hx_on_change:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_contextmenu:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_focus:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    hx_on_input:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_invalid:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_reset:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_select:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    hx_on_submit:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keydown:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keypress:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keyup:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    hx_on_click:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_dblclick:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mousedown:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    hx_on_mouseenter:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseleave:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mousemove:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    hx_on_mouseout:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseover:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseup:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    hx_on_wheel:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__abort:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_on_load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    hx_on__after_process_node:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_settle:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    hx_on__after_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_cleanup_element:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    hx_on__before_on_load:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_process_node:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    hx_on__before_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_send:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    hx_on__before_transition:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__config_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__confirm:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    hx_on__history_cache_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__history_cache_miss:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    hx_on__history_cache_miss_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__history_cache_miss_load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    hx_on__history_restore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_history_save:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    hx_on__no_sse_source_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__on_load_error:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    hx_on__oob_after_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__oob_before_swap:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    hx_on__oob_error_no_target:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__prompt:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__pushed_into_history:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    hx_on__replaced_in_history:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__response_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__send_abort:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    hx_on__send_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__sse_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__sse_open:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    hx_on__swap_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__target_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__timeout:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    hx_on__validation_validate:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__validation_failed:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    hx_on__validation_halted:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_abort:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_loadend:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    hx_on__xhr_loadstart:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_progress:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_init:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    hx_on__before_cleanup:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_history_update:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    hx_on__before_init:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_process:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    hx_on__before_history_restore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_history_push:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    hx_on__after_history_replace:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__error:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kw</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A Main with class <code>container</code>.</em></p>
+</section>
+</div>
+<div id="bbfe6fcf" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.576569+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.580603+00:00&quot;,&quot;total&quot;:0.00403770999999864}}" data-execution_count="8">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L56" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="column" class="level3">
+<h3 class="anchored" data-anchor-id="column">Column</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Column(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, span:NoneType<span class="op">=</span><span class="va">None</span>, offset:NoneType<span class="op">=</span><span class="va">None</span>, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="op">**</span>kw</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A column in a Row spanning <code>span</code> of 12 (FastHTML’s <code>Col</code> is the <code>&lt;col&gt;</code> tag, so this is <a href="https://vedicreader.github.io/fhoat/components.html#column"><code>Column</code></a>).</em></p>
+</section>
+</div>
+<div id="02159e18" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.580740+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.584258+00:00&quot;,&quot;total&quot;:0.0035219430000026364}}" data-execution_count="9">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L52" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="row" class="level3">
+<h3 class="anchored" data-anchor-id="row">Row</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Row(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="op">**</span>kw</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Oat’s 12-column row (4 columns on a phone).</em></p>
+</section>
+</div>
+<div id="2382896e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.584395+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.591872+00:00&quot;,&quot;total&quot;:0.007511202999999966}}" data-execution_count="10">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L47" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="grid" class="level3">
+<h3 class="anchored" data-anchor-id="grid">Grid</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Grid(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, col_min:NoneType<span class="op">=</span><span class="va">None</span>, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, target_id:NoneType<span class="op">=</span><span class="va">None</span>, hx_vals:NoneType<span class="op">=</span><span class="va">None</span>, hx_target:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">id</span>:NoneType<span class="op">=</span><span class="va">None</span>, title:NoneType<span class="op">=</span><span class="va">None</span>, style:NoneType<span class="op">=</span><span class="va">None</span>, accesskey:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    contenteditable:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">dir</span>:NoneType<span class="op">=</span><span class="va">None</span>, draggable:NoneType<span class="op">=</span><span class="va">None</span>, enterkeyhint:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    hidden:NoneType<span class="op">=</span><span class="va">None</span>, inert:NoneType<span class="op">=</span><span class="va">None</span>, inputmode:NoneType<span class="op">=</span><span class="va">None</span>, lang:NoneType<span class="op">=</span><span class="va">None</span>, popover:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    spellcheck:NoneType<span class="op">=</span><span class="va">None</span>, tabindex:NoneType<span class="op">=</span><span class="va">None</span>, translate:NoneType<span class="op">=</span><span class="va">None</span>, hx_get:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    hx_post:NoneType<span class="op">=</span><span class="va">None</span>, hx_put:NoneType<span class="op">=</span><span class="va">None</span>, hx_delete:NoneType<span class="op">=</span><span class="va">None</span>, hx_patch:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    hx_trigger:NoneType<span class="op">=</span><span class="va">None</span>, hx_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_swap_oob:NoneType<span class="op">=</span><span class="va">None</span>, hx_include:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    hx_select:NoneType<span class="op">=</span><span class="va">None</span>, hx_select_oob:NoneType<span class="op">=</span><span class="va">None</span>, hx_indicator:NoneType<span class="op">=</span><span class="va">None</span>, hx_push_url:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    hx_confirm:NoneType<span class="op">=</span><span class="va">None</span>, hx_disable:NoneType<span class="op">=</span><span class="va">None</span>, hx_replace_url:NoneType<span class="op">=</span><span class="va">None</span>, hx_disabled_elt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    hx_ext:NoneType<span class="op">=</span><span class="va">None</span>, hx_headers:NoneType<span class="op">=</span><span class="va">None</span>, hx_history:NoneType<span class="op">=</span><span class="va">None</span>, hx_history_elt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    hx_inherit:NoneType<span class="op">=</span><span class="va">None</span>, hx_params:NoneType<span class="op">=</span><span class="va">None</span>, hx_preserve:NoneType<span class="op">=</span><span class="va">None</span>, hx_prompt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    hx_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_sync:NoneType<span class="op">=</span><span class="va">None</span>, hx_validate:NoneType<span class="op">=</span><span class="va">None</span>, hx_action:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    hx_method:NoneType<span class="op">=</span><span class="va">None</span>, hx_config:NoneType<span class="op">=</span><span class="va">None</span>, hx_ignore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_blur:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    hx_on_change:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_contextmenu:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_focus:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    hx_on_input:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_invalid:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_reset:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_select:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    hx_on_submit:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keydown:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keypress:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keyup:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    hx_on_click:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_dblclick:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mousedown:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    hx_on_mouseenter:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseleave:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mousemove:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    hx_on_mouseout:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseover:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseup:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    hx_on_wheel:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__abort:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_on_load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    hx_on__after_process_node:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_settle:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    hx_on__after_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_cleanup_element:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    hx_on__before_on_load:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_process_node:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    hx_on__before_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_send:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    hx_on__before_transition:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__config_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__confirm:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    hx_on__history_cache_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__history_cache_miss:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    hx_on__history_cache_miss_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__history_cache_miss_load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    hx_on__history_restore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_history_save:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    hx_on__no_sse_source_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__on_load_error:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    hx_on__oob_after_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__oob_before_swap:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    hx_on__oob_error_no_target:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__prompt:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__pushed_into_history:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    hx_on__replaced_in_history:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__response_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__send_abort:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    hx_on__send_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__sse_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__sse_open:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    hx_on__swap_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__target_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__timeout:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    hx_on__validation_validate:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__validation_failed:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    hx_on__validation_halted:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_abort:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_loadend:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    hx_on__xhr_loadstart:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_progress:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_init:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    hx_on__before_cleanup:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_history_update:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    hx_on__before_init:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_process:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    hx_on__before_history_restore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_history_push:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    hx_on__after_history_replace:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__error:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kw</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Equal columns that wrap below <code>col_min</code> (a CSS length, default 14rem); each child in a Div, as pico’s Grid.</em></p>
+</section>
+</div>
+<div id="88591928" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.592072+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.599286+00:00&quot;,&quot;total&quot;:0.007218349999995155}}" data-execution_count="11">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L42" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="search" class="level3">
+<h3 class="anchored" data-anchor-id="search">Search</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Search(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, target_id:NoneType<span class="op">=</span><span class="va">None</span>, hx_vals:NoneType<span class="op">=</span><span class="va">None</span>, hx_target:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">id</span>:NoneType<span class="op">=</span><span class="va">None</span>, cls:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    title:NoneType<span class="op">=</span><span class="va">None</span>, style:NoneType<span class="op">=</span><span class="va">None</span>, accesskey:NoneType<span class="op">=</span><span class="va">None</span>, contenteditable:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">dir</span>:NoneType<span class="op">=</span><span class="va">None</span>, draggable:NoneType<span class="op">=</span><span class="va">None</span>, enterkeyhint:NoneType<span class="op">=</span><span class="va">None</span>, hidden:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    inert:NoneType<span class="op">=</span><span class="va">None</span>, inputmode:NoneType<span class="op">=</span><span class="va">None</span>, lang:NoneType<span class="op">=</span><span class="va">None</span>, popover:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    spellcheck:NoneType<span class="op">=</span><span class="va">None</span>, tabindex:NoneType<span class="op">=</span><span class="va">None</span>, translate:NoneType<span class="op">=</span><span class="va">None</span>, hx_get:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    hx_post:NoneType<span class="op">=</span><span class="va">None</span>, hx_put:NoneType<span class="op">=</span><span class="va">None</span>, hx_delete:NoneType<span class="op">=</span><span class="va">None</span>, hx_patch:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    hx_trigger:NoneType<span class="op">=</span><span class="va">None</span>, hx_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_swap_oob:NoneType<span class="op">=</span><span class="va">None</span>, hx_include:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    hx_select:NoneType<span class="op">=</span><span class="va">None</span>, hx_select_oob:NoneType<span class="op">=</span><span class="va">None</span>, hx_indicator:NoneType<span class="op">=</span><span class="va">None</span>, hx_push_url:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    hx_confirm:NoneType<span class="op">=</span><span class="va">None</span>, hx_disable:NoneType<span class="op">=</span><span class="va">None</span>, hx_replace_url:NoneType<span class="op">=</span><span class="va">None</span>, hx_disabled_elt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    hx_ext:NoneType<span class="op">=</span><span class="va">None</span>, hx_headers:NoneType<span class="op">=</span><span class="va">None</span>, hx_history:NoneType<span class="op">=</span><span class="va">None</span>, hx_history_elt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    hx_inherit:NoneType<span class="op">=</span><span class="va">None</span>, hx_params:NoneType<span class="op">=</span><span class="va">None</span>, hx_preserve:NoneType<span class="op">=</span><span class="va">None</span>, hx_prompt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    hx_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_sync:NoneType<span class="op">=</span><span class="va">None</span>, hx_validate:NoneType<span class="op">=</span><span class="va">None</span>, hx_action:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    hx_method:NoneType<span class="op">=</span><span class="va">None</span>, hx_config:NoneType<span class="op">=</span><span class="va">None</span>, hx_ignore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_blur:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    hx_on_change:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_contextmenu:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_focus:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    hx_on_input:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_invalid:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_reset:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_select:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    hx_on_submit:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keydown:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keypress:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keyup:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    hx_on_click:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_dblclick:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mousedown:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    hx_on_mouseenter:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseleave:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mousemove:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    hx_on_mouseout:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseover:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseup:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    hx_on_wheel:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__abort:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_on_load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    hx_on__after_process_node:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_settle:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    hx_on__after_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_cleanup_element:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    hx_on__before_on_load:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_process_node:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    hx_on__before_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_send:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    hx_on__before_transition:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__config_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__confirm:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    hx_on__history_cache_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__history_cache_miss:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    hx_on__history_cache_miss_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__history_cache_miss_load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    hx_on__history_restore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_history_save:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    hx_on__no_sse_source_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__on_load_error:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    hx_on__oob_after_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__oob_before_swap:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    hx_on__oob_error_no_target:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__prompt:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__pushed_into_history:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    hx_on__replaced_in_history:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__response_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__send_abort:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    hx_on__send_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__sse_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__sse_open:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    hx_on__swap_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__target_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__timeout:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    hx_on__validation_validate:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__validation_failed:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    hx_on__validation_halted:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_abort:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_loadend:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    hx_on__xhr_loadstart:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_progress:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_init:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    hx_on__before_cleanup:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_history_update:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    hx_on__before_init:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_process:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    hx_on__before_history_restore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_history_push:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    hx_on__after_history_replace:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__error:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kw</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A Form with role <code>search</code> (pico’s name; it hides FastHTML’s <code>&lt;search&gt;</code> tag).</em></p>
+</section>
+</div>
+<div id="20b6e583" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.599458+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.606634+00:00&quot;,&quot;total&quot;:0.007180674000004217}}" data-execution_count="12">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L37" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="group" class="level3">
+<h3 class="anchored" data-anchor-id="group">Group</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Group(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, target_id:NoneType<span class="op">=</span><span class="va">None</span>, hx_vals:NoneType<span class="op">=</span><span class="va">None</span>, hx_target:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">id</span>:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    title:NoneType<span class="op">=</span><span class="va">None</span>, style:NoneType<span class="op">=</span><span class="va">None</span>, accesskey:NoneType<span class="op">=</span><span class="va">None</span>, contenteditable:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">dir</span>:NoneType<span class="op">=</span><span class="va">None</span>, draggable:NoneType<span class="op">=</span><span class="va">None</span>, enterkeyhint:NoneType<span class="op">=</span><span class="va">None</span>, hidden:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    inert:NoneType<span class="op">=</span><span class="va">None</span>, inputmode:NoneType<span class="op">=</span><span class="va">None</span>, lang:NoneType<span class="op">=</span><span class="va">None</span>, popover:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    spellcheck:NoneType<span class="op">=</span><span class="va">None</span>, tabindex:NoneType<span class="op">=</span><span class="va">None</span>, translate:NoneType<span class="op">=</span><span class="va">None</span>, hx_get:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    hx_post:NoneType<span class="op">=</span><span class="va">None</span>, hx_put:NoneType<span class="op">=</span><span class="va">None</span>, hx_delete:NoneType<span class="op">=</span><span class="va">None</span>, hx_patch:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    hx_trigger:NoneType<span class="op">=</span><span class="va">None</span>, hx_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_swap_oob:NoneType<span class="op">=</span><span class="va">None</span>, hx_include:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    hx_select:NoneType<span class="op">=</span><span class="va">None</span>, hx_select_oob:NoneType<span class="op">=</span><span class="va">None</span>, hx_indicator:NoneType<span class="op">=</span><span class="va">None</span>, hx_push_url:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    hx_confirm:NoneType<span class="op">=</span><span class="va">None</span>, hx_disable:NoneType<span class="op">=</span><span class="va">None</span>, hx_replace_url:NoneType<span class="op">=</span><span class="va">None</span>, hx_disabled_elt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    hx_ext:NoneType<span class="op">=</span><span class="va">None</span>, hx_headers:NoneType<span class="op">=</span><span class="va">None</span>, hx_history:NoneType<span class="op">=</span><span class="va">None</span>, hx_history_elt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    hx_inherit:NoneType<span class="op">=</span><span class="va">None</span>, hx_params:NoneType<span class="op">=</span><span class="va">None</span>, hx_preserve:NoneType<span class="op">=</span><span class="va">None</span>, hx_prompt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    hx_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_sync:NoneType<span class="op">=</span><span class="va">None</span>, hx_validate:NoneType<span class="op">=</span><span class="va">None</span>, hx_action:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    hx_method:NoneType<span class="op">=</span><span class="va">None</span>, hx_config:NoneType<span class="op">=</span><span class="va">None</span>, hx_ignore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_blur:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    hx_on_change:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_contextmenu:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_focus:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    hx_on_input:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_invalid:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_reset:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_select:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    hx_on_submit:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keydown:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keypress:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keyup:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    hx_on_click:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_dblclick:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mousedown:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    hx_on_mouseenter:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseleave:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mousemove:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    hx_on_mouseout:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseover:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseup:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    hx_on_wheel:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__abort:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_on_load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    hx_on__after_process_node:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_settle:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    hx_on__after_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_cleanup_element:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    hx_on__before_on_load:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_process_node:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    hx_on__before_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_send:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    hx_on__before_transition:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__config_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__confirm:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    hx_on__history_cache_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__history_cache_miss:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    hx_on__history_cache_miss_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__history_cache_miss_load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    hx_on__history_restore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_history_save:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    hx_on__no_sse_source_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__on_load_error:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    hx_on__oob_after_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__oob_before_swap:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    hx_on__oob_error_no_target:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__prompt:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__pushed_into_history:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    hx_on__replaced_in_history:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__response_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__send_abort:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    hx_on__send_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__sse_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__sse_open:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    hx_on__swap_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__target_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__timeout:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>    hx_on__validation_validate:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__validation_failed:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    hx_on__validation_halted:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_abort:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_loadend:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    hx_on__xhr_loadstart:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_progress:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_init:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    hx_on__before_cleanup:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_history_update:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    hx_on__before_init:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_process:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    hx_on__before_history_restore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_history_push:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    hx_on__after_history_replace:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__error:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kw</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Joined inputs and buttons: a Fieldset with class <code>group</code>.</em></p>
+</section>
+</div>
+<div id="e7586839" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.606811+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.614363+00:00&quot;,&quot;total&quot;:0.00755682399999813}}" data-execution_count="13">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L30" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="card" class="level3">
+<h3 class="anchored" data-anchor-id="card">Card</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Card(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, header:NoneType<span class="op">=</span><span class="va">None</span>, footer:NoneType<span class="op">=</span><span class="va">None</span>, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, target_id:NoneType<span class="op">=</span><span class="va">None</span>, hx_vals:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    hx_target:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">id</span>:NoneType<span class="op">=</span><span class="va">None</span>, title:NoneType<span class="op">=</span><span class="va">None</span>, style:NoneType<span class="op">=</span><span class="va">None</span>, accesskey:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    contenteditable:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">dir</span>:NoneType<span class="op">=</span><span class="va">None</span>, draggable:NoneType<span class="op">=</span><span class="va">None</span>, enterkeyhint:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    hidden:NoneType<span class="op">=</span><span class="va">None</span>, inert:NoneType<span class="op">=</span><span class="va">None</span>, inputmode:NoneType<span class="op">=</span><span class="va">None</span>, lang:NoneType<span class="op">=</span><span class="va">None</span>, popover:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    spellcheck:NoneType<span class="op">=</span><span class="va">None</span>, tabindex:NoneType<span class="op">=</span><span class="va">None</span>, translate:NoneType<span class="op">=</span><span class="va">None</span>, hx_get:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    hx_post:NoneType<span class="op">=</span><span class="va">None</span>, hx_put:NoneType<span class="op">=</span><span class="va">None</span>, hx_delete:NoneType<span class="op">=</span><span class="va">None</span>, hx_patch:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    hx_trigger:NoneType<span class="op">=</span><span class="va">None</span>, hx_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_swap_oob:NoneType<span class="op">=</span><span class="va">None</span>, hx_include:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    hx_select:NoneType<span class="op">=</span><span class="va">None</span>, hx_select_oob:NoneType<span class="op">=</span><span class="va">None</span>, hx_indicator:NoneType<span class="op">=</span><span class="va">None</span>, hx_push_url:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    hx_confirm:NoneType<span class="op">=</span><span class="va">None</span>, hx_disable:NoneType<span class="op">=</span><span class="va">None</span>, hx_replace_url:NoneType<span class="op">=</span><span class="va">None</span>, hx_disabled_elt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    hx_ext:NoneType<span class="op">=</span><span class="va">None</span>, hx_headers:NoneType<span class="op">=</span><span class="va">None</span>, hx_history:NoneType<span class="op">=</span><span class="va">None</span>, hx_history_elt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    hx_inherit:NoneType<span class="op">=</span><span class="va">None</span>, hx_params:NoneType<span class="op">=</span><span class="va">None</span>, hx_preserve:NoneType<span class="op">=</span><span class="va">None</span>, hx_prompt:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    hx_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_sync:NoneType<span class="op">=</span><span class="va">None</span>, hx_validate:NoneType<span class="op">=</span><span class="va">None</span>, hx_action:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    hx_method:NoneType<span class="op">=</span><span class="va">None</span>, hx_config:NoneType<span class="op">=</span><span class="va">None</span>, hx_ignore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_blur:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    hx_on_change:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_contextmenu:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_focus:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    hx_on_input:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_invalid:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_reset:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_select:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    hx_on_submit:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keydown:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keypress:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_keyup:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    hx_on_click:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_dblclick:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mousedown:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    hx_on_mouseenter:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseleave:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mousemove:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    hx_on_mouseout:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseover:NoneType<span class="op">=</span><span class="va">None</span>, hx_on_mouseup:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    hx_on_wheel:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__abort:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_on_load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    hx_on__after_process_node:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_settle:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    hx_on__after_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_cleanup_element:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    hx_on__before_on_load:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_process_node:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    hx_on__before_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_send:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    hx_on__before_transition:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__config_request:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__confirm:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    hx_on__history_cache_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__history_cache_miss:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    hx_on__history_cache_miss_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__history_cache_miss_load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    hx_on__history_restore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_history_save:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__load:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    hx_on__no_sse_source_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__on_load_error:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    hx_on__oob_after_swap:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__oob_before_swap:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    hx_on__oob_error_no_target:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__prompt:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__pushed_into_history:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    hx_on__replaced_in_history:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__response_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__send_abort:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    hx_on__send_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__sse_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__sse_open:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    hx_on__swap_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__target_error:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__timeout:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    hx_on__validation_validate:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__validation_failed:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    hx_on__validation_halted:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_abort:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_loadend:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    hx_on__xhr_loadstart:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__xhr_progress:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_init:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    hx_on__before_cleanup:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_history_update:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>    hx_on__before_init:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__before_process:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    hx_on__before_history_restore:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__after_history_push:NoneType<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    hx_on__after_history_replace:NoneType<span class="op">=</span><span class="va">None</span>, hx_on__error:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kw</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>An Oat card: an Article with an optional Header and Footer, each ruled off.</em></p>
+</section>
+</div>
+<div id="ca2c9594" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'class="card ot-card"'</span> <span class="kw">in</span> to_xml(Card(<span class="st">'b'</span>, header<span class="op">=</span><span class="st">'h'</span>, footer<span class="op">=</span><span class="st">'f'</span>)) <span class="kw">and</span> <span class="st">'&lt;header&gt;h&lt;/header&gt;'</span> <span class="kw">in</span> to_xml(Card(<span class="st">'b'</span>, header<span class="op">=</span><span class="st">'h'</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'class="group"'</span> <span class="kw">in</span> to_xml(Group(Input())) <span class="kw">and</span> <span class="st">'role="search"'</span> <span class="kw">in</span> to_xml(Search())</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'--min:10rem'</span> <span class="kw">in</span> to_xml(Grid(<span class="st">'a'</span>, <span class="st">'b'</span>, col_min<span class="op">=</span><span class="st">'10rem'</span>)) <span class="kw">and</span> to_xml(Grid(<span class="st">'a'</span>)).count(<span class="st">'&lt;div&gt;'</span>) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'class="col-8 offset-2"'</span> <span class="kw">in</span> to_xml(Column(span<span class="op">=</span><span class="dv">8</span>, offset<span class="op">=</span><span class="dv">2</span>)) <span class="kw">and</span> <span class="st">'class="row"'</span> <span class="kw">in</span> to_xml(Row())</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'closedby="any"'</span> <span class="kw">in</span> to_xml(DialogX(<span class="st">'b'</span>, <span class="bu">id</span><span class="op">=</span><span class="st">'d'</span>)) <span class="kw">and</span> <span class="st">'closedby="none"'</span> <span class="kw">in</span> to_xml(DialogX(<span class="st">'b'</span>, closedby<span class="op">=</span><span class="st">'none'</span>))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'method="dialog"'</span> <span class="kw">in</span> to_xml(DialogX(<span class="st">'b'</span>, form<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="dialogs-and-buttons" class="level2">
+<h2 class="anchored" data-anchor-id="dialogs-and-buttons">Dialogs and buttons</h2>
+<div id="e34d9b1f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.619606+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.623287+00:00&quot;,&quot;total&quot;:0.003683734999995636}}" data-execution_count="15">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L103" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="tip" class="level3">
+<h3 class="anchored" data-anchor-id="tip">tip</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tip(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    text, placement:NoneType<span class="op">=</span><span class="va">None</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">dict</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Attrs for an Oat tooltip, to splat into any tag: <code>Btn('Save', **tip('Saves the draft', 'bottom'))</code>.</em></p>
+</section>
+</div>
+<div id="2bfabbe6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.623417+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.627045+00:00&quot;,&quot;total&quot;:0.003631081999998287}}" data-execution_count="16">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L99" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="buttongroup" class="level3">
+<h3 class="anchored" data-anchor-id="buttongroup">ButtonGroup</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ButtonGroup(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, <span class="op">**</span>kw</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Connected buttons: Oat’s <code>menu.buttons</code>, each button in an Li.</em></p>
+</section>
+</div>
+<div id="ab9c24e6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.627174+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.631256+00:00&quot;,&quot;total&quot;:0.0040854069999980425}}" data-execution_count="17">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L94" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="abtn" class="level3">
+<h3 class="anchored" data-anchor-id="abtn">ABtn</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ABtn(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, href:<span class="bu">str</span><span class="op">=</span><span class="st">'#'</span>, variant:NoneType<span class="op">=</span><span class="va">None</span>, look:NoneType<span class="op">=</span><span class="va">None</span>, size:NoneType<span class="op">=</span><span class="va">None</span>, icon:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span>, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>kw</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A link drawn as a button.</em></p>
+</section>
+</div>
+<div id="2cd1b0a0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.631391+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.635341+00:00&quot;,&quot;total&quot;:0.003953439000000003}}" data-execution_count="18">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L89" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="btn" class="level3">
+<h3 class="anchored" data-anchor-id="btn">Btn</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Btn(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, variant:NoneType<span class="op">=</span><span class="va">None</span>, look:NoneType<span class="op">=</span><span class="va">None</span>, size:NoneType<span class="op">=</span><span class="va">None</span>, icon:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span>, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="op">**</span>kw</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A button: <code>variant</code> secondary|danger, <code>look</code> outline|ghost, <code>size</code> small|large (or sm|lg), <code>icon</code> for a square one.</em></p>
+</section>
+</div>
+<div id="5b6f759b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.635475+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.639499+00:00&quot;,&quot;total&quot;:0.004027652999994302}}" data-execution_count="19">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L82" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="dialogclose" class="level3">
+<h3 class="anchored" data-anchor-id="dialogclose">DialogClose</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> DialogClose(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, <span class="bu">id</span>:NoneType<span class="op">=</span><span class="va">None</span>, cls:<span class="bu">str</span><span class="op">=</span><span class="st">'outline'</span>, <span class="op">**</span>kw</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A button that closes dialog <code>id</code>, or the dialog it sits in when there is no <code>id</code>.</em></p>
+</section>
+</div>
+<div id="2d8ca57f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.639632+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.643361+00:00&quot;,&quot;total&quot;:0.0037329590000041435}}" data-execution_count="20">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L78" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="dialogopen" class="level3">
+<h3 class="anchored" data-anchor-id="dialogopen">DialogOpen</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> DialogOpen(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, <span class="bu">id</span>, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="op">**</span>kw</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A button that opens dialog <code>id</code> as a modal (invoker commands; Oat polyfills them).</em></p>
+</section>
+</div>
+<div id="7b54c429" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'commandfor="d"'</span> <span class="kw">in</span> to_xml(DialogOpen(<span class="st">'o'</span>, <span class="bu">id</span><span class="op">=</span><span class="st">'d'</span>)) <span class="kw">and</span> <span class="st">'command="close"'</span> <span class="kw">in</span> to_xml(DialogClose(<span class="bu">id</span><span class="op">=</span><span class="st">'d'</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'data-variant="danger"'</span> <span class="kw">in</span> to_xml(Btn(<span class="st">'x'</span>, variant<span class="op">=</span><span class="st">'danger'</span>)) <span class="kw">and</span> <span class="st">'class="outline small"'</span> <span class="kw">in</span> to_xml(Btn(<span class="st">'x'</span>, look<span class="op">=</span><span class="st">'outline'</span>, size<span class="op">=</span><span class="st">'sm'</span>))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'class="button ghost"'</span> <span class="kw">in</span> to_xml(ABtn(<span class="st">'a'</span>, look<span class="op">=</span><span class="st">'ghost'</span>)) <span class="kw">and</span> <span class="st">'class="buttons"'</span> <span class="kw">in</span> to_xml(ButtonGroup(Btn(<span class="st">'a'</span>), Btn(<span class="st">'b'</span>)))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'data-tooltip-placement="bottom"'</span> <span class="kw">in</span> to_xml(Btn(<span class="st">'s'</span>, <span class="op">**</span>tip(<span class="st">'Save'</span>, <span class="st">'bottom'</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="content" class="level2">
+<h2 class="anchored" data-anchor-id="content">Content</h2>
+<div id="5713794e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.648003+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.651925+00:00&quot;,&quot;total&quot;:0.003924539000003335}}" data-execution_count="22">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L129" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="spinner" class="level3">
+<h3 class="anchored" data-anchor-id="spinner">Spinner</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Spinner(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, size:NoneType<span class="op">=</span><span class="va">None</span>, overlay:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span>, <span class="op">**</span>kw</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A busy spinner; with <code>overlay</code> it covers and dims its children.</em></p>
+</section>
+</div>
+<div id="ad5454ed" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.652051+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.655917+00:00&quot;,&quot;total&quot;:0.0038687839999980156}}" data-execution_count="23">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L125" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="skeleton" class="level3">
+<h3 class="anchored" data-anchor-id="skeleton">Skeleton</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Skeleton(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    n:<span class="bu">int</span><span class="op">=</span><span class="dv">3</span>, box:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span>, <span class="op">**</span>kw</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Loading placeholders: <code>n</code> lines, after a box when <code>box</code>.</em></p>
+</section>
+</div>
+<div id="d6565c8a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.656051+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.659750+00:00&quot;,&quot;total&quot;:0.003702807000003361}}" data-execution_count="24">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L121" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="avatargroup" class="level3">
+<h3 class="anchored" data-anchor-id="avatargroup">AvatarGroup</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> AvatarGroup(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>avatars, size:NoneType<span class="op">=</span><span class="va">None</span>, label:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="op">**</span>kw</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Overlapping avatars; <code>size</code> applies to all.</em></p>
+</section>
+</div>
+<div id="84106c72" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.659901+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.663909+00:00&quot;,&quot;total&quot;:0.004011636000001317}}" data-execution_count="25">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L116" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="avatar" class="level3">
+<h3 class="anchored" data-anchor-id="avatar">Avatar</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Avatar(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    src:NoneType<span class="op">=</span><span class="va">None</span>, initials:NoneType<span class="op">=</span><span class="va">None</span>, name:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, size:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kw</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A round avatar: an image or initials; <code>name</code> labels it; <code>size</code> small|large.</em></p>
+</section>
+</div>
+<div id="73aef137" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.664031+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.667820+00:00&quot;,&quot;total&quot;:0.003795086000003778}}" data-execution_count="26">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L112" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="alert" class="level3">
+<h3 class="anchored" data-anchor-id="alert">Alert</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Alert(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, title:NoneType<span class="op">=</span><span class="va">None</span>, variant:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kw</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A callout: <code>variant</code> success|warning|danger|error.</em></p>
+</section>
+</div>
+<div id="36ae2f6c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.667990+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.671942+00:00&quot;,&quot;total&quot;:0.003955931000000135}}" data-execution_count="27">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L108" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="badge" class="level3">
+<h3 class="anchored" data-anchor-id="badge">Badge</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Badge(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, variant:NoneType<span class="op">=</span><span class="va">None</span>, look:NoneType<span class="op">=</span><span class="va">None</span>, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="op">**</span>kw</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A pill: <code>variant</code> secondary|success|warning|danger, <code>look='outline'</code>.</em></p>
+</section>
+</div>
+<div id="7120d72c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> to_xml(Alert(<span class="st">'x'</span>, title<span class="op">=</span><span class="st">'T'</span>, variant<span class="op">=</span><span class="st">'warning'</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'role="alert" data-variant="warning"'</span> <span class="kw">in</span> a <span class="kw">and</span> <span class="st">'&lt;strong&gt;T&lt;/strong&gt;x&lt;/div&gt;'</span> <span class="kw">in</span> a</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'&lt;abbr title="Jane Doe"&gt;JD&lt;/abbr&gt;'</span> <span class="kw">in</span> to_xml(Avatar(initials<span class="op">=</span><span class="st">'JD'</span>, name<span class="op">=</span><span class="st">'Jane Doe'</span>)) <span class="kw">and</span> <span class="st">'role="group"'</span> <span class="kw">in</span> to_xml(AvatarGroup(Avatar(initials<span class="op">=</span><span class="st">'A'</span>)))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'data-spinner="small overlay"'</span> <span class="kw">in</span> to_xml(Spinner(P(<span class="st">'x'</span>), size<span class="op">=</span><span class="st">'sm'</span>, overlay<span class="op">=</span><span class="va">True</span>)) <span class="kw">and</span> <span class="st">'class="badge outline"'</span> <span class="kw">in</span> to_xml(Badge(<span class="st">'b'</span>, look<span class="op">=</span><span class="st">'outline'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="forms" class="level2">
+<h2 class="anchored" data-anchor-id="forms">Forms</h2>
+<div id="0f9348d3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.676842+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.681092+00:00&quot;,&quot;total&quot;:0.004254865000000052}}" data-execution_count="29">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L153" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="taginput" class="level3">
+<h3 class="anchored" data-anchor-id="taginput">TagInput</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> TagInput(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    name:<span class="bu">str</span><span class="op">=</span><span class="st">'tags'</span>, value:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, placeholder:<span class="bu">str</span><span class="op">=</span><span class="st">'Add tags…'</span>, <span class="op">**</span>kw</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Oat’s tag entry: Enter or comma adds a tag; a hidden input carries the tags to the form.</em></p>
+</section>
+</div>
+<div id="d66aeb82" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.681247+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.685542+00:00&quot;,&quot;total&quot;:0.004297515000004637}}" data-execution_count="30">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L148" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="upload" class="level3">
+<h3 class="anchored" data-anchor-id="upload">Upload</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Upload(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    name:<span class="bu">str</span><span class="op">=</span><span class="st">'files'</span>, label:<span class="bu">str</span><span class="op">=</span><span class="st">'Files'</span>, hint:<span class="bu">str</span><span class="op">=</span><span class="st">'Drop files here or click to choose'</span>, multiple:<span class="bu">bool</span><span class="op">=</span><span class="va">True</span>, <span class="op">**</span>kw</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Oat’s drop zone for files; the chosen names show as badges.</em></p>
+</section>
+</div>
+<div id="6aec83b9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.685676+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.689400+00:00&quot;,&quot;total&quot;:0.0037284149999976535}}" data-execution_count="31">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L144" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="switch" class="level3">
+<h3 class="anchored" data-anchor-id="switch">Switch</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Switch(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    label, <span class="op">**</span>kw</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A toggle switch.</em></p>
+</section>
+</div>
+<div id="cc2827fd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.689531+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.694491+00:00&quot;,&quot;total&quot;:0.004964931000003503}}" data-execution_count="32">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L135" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="field" class="level3">
+<h3 class="anchored" data-anchor-id="field">Field</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Field(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    label, inp, hint:NoneType<span class="op">=</span><span class="va">None</span>, error:NoneType<span class="op">=</span><span class="va">None</span>, invalid:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span>, <span class="op">**</span>kw</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A labelled input with a hint (linked by <code>aria-describedby</code>) and an error shown when <code>invalid</code>.</em></p>
+</section>
+</div>
+<div id="375d13a3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> to_xml(Field(<span class="st">'Email'</span>, Input(name<span class="op">=</span><span class="st">'email'</span>), hint<span class="op">=</span><span class="st">'h'</span>, error<span class="op">=</span><span class="st">'bad'</span>, invalid<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'aria-describedby="email-hint email-err"'</span> <span class="kw">in</span> f <span class="kw">and</span> <span class="st">'aria-invalid="true"'</span> <span class="kw">in</span> f <span class="kw">and</span> <span class="st">'id="email-err"'</span> <span class="kw">in</span> f</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'role="switch"'</span> <span class="kw">in</span> to_xml(Switch(<span class="st">'s'</span>)) <span class="kw">and</span> <span class="st">'&lt;ot-upload&gt;'</span> <span class="kw">in</span> to_xml(Upload()) <span class="kw">and</span> <span class="st">'name="tags"'</span> <span class="kw">in</span> to_xml(TagInput())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="tabs-menus-and-the-sidebar" class="level2">
+<h2 class="anchored" data-anchor-id="tabs-menus-and-the-sidebar">Tabs, menus and the sidebar</h2>
+<div id="f77e5036" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.699548+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.703498+00:00&quot;,&quot;total&quot;:0.003954344000000276}}" data-execution_count="34">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L181" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="sidebartoggle" class="level3">
+<h3 class="anchored" data-anchor-id="sidebartoggle">SidebarToggle</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> SidebarToggle(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, cls:<span class="bu">str</span><span class="op">=</span><span class="st">'ghost icon small'</span>, <span class="op">**</span>kw</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>The button that opens and closes the sidebar on small screens.</em></p>
+</section>
+</div>
+<div id="19bdfe45" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.703634+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.707903+00:00&quot;,&quot;total&quot;:0.004273255000001086}}" data-execution_count="35">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L176" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="sidebar" class="level3">
+<h3 class="anchored" data-anchor-id="sidebar">Sidebar</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Sidebar(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    nav, <span class="op">*</span>main, header:NoneType<span class="op">=</span><span class="va">None</span>, footer:NoneType<span class="op">=</span><span class="va">None</span>, topnav:NoneType<span class="op">=</span><span class="va">None</span>, always:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span>, <span class="op">**</span>kw</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Oat’s sidebar layout: <code>nav</code> in an aside (with <code>footer</code>), <code>main</code> beside it, an optional sticky <code>topnav</code>.</em></p>
+</section>
+</div>
+<div id="58f7bb42" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.708034+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.712166+00:00&quot;,&quot;total&quot;:0.004135515999998063}}" data-execution_count="36">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L170" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="dropdown" class="level3">
+<h3 class="anchored" data-anchor-id="dropdown">Dropdown</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Dropdown(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    trigger, <span class="op">*</span>items, <span class="bu">id</span>:NoneType<span class="op">=</span><span class="va">None</span>, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="op">**</span>kw</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A menu under <code>trigger</code> (a string or a Button); items are links, buttons, strings or <code>Hr()</code>.</em></p>
+</section>
+</div>
+<div id="98ed5cbc" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.712296+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.716465+00:00&quot;,&quot;total&quot;:0.004172362999995016}}" data-execution_count="37">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L159" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="tabs" class="level3">
+<h3 class="anchored" data-anchor-id="tabs">Tabs</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Tabs(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>tabs, anchor:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kw</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Tabs from (label, content) pairs; <code>anchor</code> deep-links the active tab in the URL hash.</em></p>
+</section>
+</div>
+<div id="cf160571" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> to_xml(Tabs((<span class="st">'A'</span>, <span class="st">'a'</span>), (<span class="st">'B'</span>, <span class="st">'b'</span>), anchor<span class="op">=</span><span class="st">'t'</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> t.count(<span class="st">'role="tab"'</span>) <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> <span class="st">'id="t-1"'</span> <span class="kw">in</span> t <span class="kw">and</span> <span class="st">'data-anchor="t"'</span> <span class="kw">in</span> t</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> to_xml(Dropdown(<span class="st">'Menu'</span>, A(<span class="st">'a'</span>, href<span class="op">=</span><span class="st">'#'</span>), Hr(), <span class="st">'b'</span>))</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> m <span class="op">==</span> to_xml(Dropdown(<span class="st">'Menu'</span>, A(<span class="st">'a'</span>, href<span class="op">=</span><span class="st">'#'</span>), Hr(), <span class="st">'b'</span>)) <span class="kw">and</span> m.count(<span class="st">'role="menuitem"'</span>) <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> <span class="st">'class="ghost"'</span> <span class="kw">in</span> m</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> to_xml(Sidebar(Ul(Li(A(<span class="st">'Home'</span>, href<span class="op">=</span><span class="st">'/'</span>))), P(<span class="st">'main'</span>), topnav<span class="op">=</span>SidebarToggle()))</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'data-sidebar-layout'</span> <span class="kw">in</span> s <span class="kw">and</span> <span class="st">'data-sidebar'</span> <span class="kw">in</span> s <span class="kw">and</span> <span class="st">'data-topnav'</span> <span class="kw">in</span> s <span class="kw">and</span> <span class="st">'data-sidebar-toggle'</span> <span class="kw">in</span> s</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="page-chrome-and-the-readers-controls" class="level2">
+<h2 class="anchored" data-anchor-id="page-chrome-and-the-readers-controls">Page chrome and the reader’s controls</h2>
+<p>The controls carry <code>data-set="key=value"</code> or <code>data-cycle="key:a,b,c"</code>; fhoat.js handles the clicks, so there is no inline script and a strict CSP still works. Each control takes your own <code>icon</code>.</p>
+<div id="4e378233" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.723598+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.728943+00:00&quot;,&quot;total&quot;:0.005349228999996569}}" data-execution_count="40">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L214" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="themepicker" class="level3">
+<h3 class="anchored" data-anchor-id="themepicker">ThemePicker</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ThemePicker(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    themes:NoneType<span class="op">=</span><span class="va">None</span>, radii:<span class="bu">dict</span><span class="op">=</span>{<span class="st">'none'</span>: <span class="st">'Sharp'</span>, <span class="st">'sm'</span>: <span class="st">'Subtle'</span>, <span class="st">'md'</span>: <span class="st">'Round'</span>, <span class="st">'lg'</span>: <span class="st">'Rounder'</span>},</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    shadows:<span class="bu">dict</span><span class="op">=</span>{<span class="st">'none'</span>: <span class="st">'Flat'</span>, <span class="st">'sm'</span>: <span class="st">'Soft'</span>, <span class="st">'md'</span>: <span class="st">'Medium'</span>, <span class="st">'lg'</span>: <span class="st">'Deep'</span>}, title:<span class="bu">str</span><span class="op">=</span><span class="st">'Theme'</span>, <span class="bu">id</span>:<span class="bu">str</span><span class="op">=</span><span class="st">'ot-themes'</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    icon:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kw</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A menu that sets the reader’s theme, corners and shadows; <code>radii=None</code> or <code>shadows=None</code> drops a row; give each picker its own <code>id</code>.</em></p>
+</section>
+</div>
+<div id="81b2d60a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.729081+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.732997+00:00&quot;,&quot;total&quot;:0.003919567000004065}}" data-execution_count="41">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L207" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="fonttoggle" class="level3">
+<h3 class="anchored" data-anchor-id="fonttoggle">FontToggle</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> FontToggle(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    sizes:<span class="bu">tuple</span><span class="op">=</span>(<span class="st">''</span>, <span class="st">'lg'</span>, <span class="st">'xl'</span>), icon:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kw</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>One button cycling the text size through <code>sizes</code> (’’ is the app default; sm|lg|xl).</em></p>
+</section>
+</div>
+<div id="54897a5d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.733130+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.737451+00:00&quot;,&quot;total&quot;:0.004325592000000711}}" data-execution_count="42">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L202" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="modetoggle" class="level3">
+<h3 class="anchored" data-anchor-id="modetoggle">ModeToggle</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ModeToggle(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    auto:NoneType<span class="op">=</span><span class="va">None</span>, light:NoneType<span class="op">=</span><span class="va">None</span>, dark:NoneType<span class="op">=</span><span class="va">None</span>, order:<span class="bu">tuple</span><span class="op">=</span>(<span class="st">'auto'</span>, <span class="st">'light'</span>, <span class="st">'dark'</span>), <span class="op">**</span>kw</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>One button cycling the modes in <code>order</code>; it shows the current mode’s icon.</em></p>
+</section>
+</div>
+<div id="f26f7e61" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.740710+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.744381+00:00&quot;,&quot;total&quot;:0.003674771000000021}}" data-execution_count="44">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L237" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="pagefooter" class="level3">
+<h3 class="anchored" data-anchor-id="pagefooter">PageFooter</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> PageFooter(</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>c, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="op">**</span>kw</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A quiet page footer.</em></p>
+</section>
+</div>
+<div id="6cac4dd2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.744503+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.748533+00:00&quot;,&quot;total&quot;:0.0040340540000016745}}" data-execution_count="45">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L232" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="hero" class="level3">
+<h3 class="anchored" data-anchor-id="hero">Hero</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Hero(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    title, <span class="op">*</span>c, sub:NoneType<span class="op">=</span><span class="va">None</span>, eyebrow:NoneType<span class="op">=</span><span class="va">None</span>, actions:<span class="bu">tuple</span><span class="op">=</span>(), cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="op">**</span>kw</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A centred page opener: eyebrow, title, subtitle, then actions.</em></p>
+</section>
+</div>
+<div id="2e0bad83" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.748665+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.753032+00:00&quot;,&quot;total&quot;:0.004370743000002619}}" data-execution_count="46">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L226" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="navbar" class="level3">
+<h3 class="anchored" data-anchor-id="navbar">Navbar</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Navbar(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    brand, <span class="op">*</span>links, end:NoneType<span class="op">=</span><span class="va">None</span>, href:<span class="bu">str</span><span class="op">=</span><span class="st">'/'</span>, cls:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="op">**</span>kw</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A sticky glass bar: brand, links as (text, href) or FT, then <code>end</code> items (default: the mode toggle).</em></p>
+</section>
+</div>
+<div id="40a35bc3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> to_xml(ThemePicker())</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> p.count(<span class="st">'data-set="theme='</span>) <span class="op">==</span> <span class="bu">len</span>(THEMES) <span class="kw">and</span> <span class="st">'data-set="radius=lg"'</span> <span class="kw">in</span> p <span class="kw">and</span> <span class="st">'onclick'</span> <span class="kw">not</span> <span class="kw">in</span> p</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'data-cycle="mode:auto,dark,light"'</span> <span class="kw">in</span> to_xml(ModeToggle(order<span class="op">=</span>(<span class="st">'auto'</span>, <span class="st">'dark'</span>, <span class="st">'light'</span>))) <span class="kw">and</span> <span class="st">'data-cycle="size:,lg,sm"'</span> <span class="kw">in</span> to_xml(FontToggle((<span class="st">''</span>, <span class="st">'lg'</span>, <span class="st">'sm'</span>)))</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'class="ot-nav"'</span> <span class="kw">in</span> to_xml(Navbar(<span class="st">'B'</span>, (<span class="st">'Docs'</span>, <span class="st">'/d'</span>))) <span class="kw">and</span> <span class="st">'href="/d"'</span> <span class="kw">in</span> to_xml(Navbar(<span class="st">'B'</span>, (<span class="st">'Docs'</span>, <span class="st">'/d'</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="toasts" class="level2">
+<h2 class="anchored" data-anchor-id="toasts">Toasts</h2>
+<p><a href="https://vedicreader.github.io/fhoat/components.html#oattoast"><code>OatToast</code></a> shows a toast where it lands: in a page or an htmx swap. <a href="https://vedicreader.github.io/fhoat/components.html#toast_hdr"><code>toast_hdr</code></a> shows one after an htmx request, through <code>HX-Trigger</code>. <a href="https://vedicreader.github.io/fhoat/components.html#setup_oat_toasts"><code>setup_oat_toasts</code></a> makes FastHTML’s own <code>add_toast(sess, msg, typ)</code> show Oat’s toasts.</p>
+<div id="b1b8b374" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.756314+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.759999+00:00&quot;,&quot;total&quot;:0.0036886090000010086}}" data-execution_count="48">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L252" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="setup_oat_toasts" class="level3">
+<h3 class="anchored" data-anchor-id="setup_oat_toasts">setup_oat_toasts</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> setup_oat_toasts(</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    app</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Show FastHTML’s <code>add_toast(sess, msg, typ)</code> toasts with Oat.</em></p>
+</section>
+</div>
+<div id="4dedf508" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.760119+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.763646+00:00&quot;,&quot;total&quot;:0.00353054099999639}}" data-execution_count="49">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L248" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="toast_hdr" class="level3">
+<h3 class="anchored" data-anchor-id="toast_hdr">toast_hdr</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> toast_hdr(</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    msg, title:NoneType<span class="op">=</span><span class="va">None</span>, variant:NoneType<span class="op">=</span><span class="va">None</span>, events:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>opts</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>An <code>HX-Trigger</code> header that shows a toast after an htmx request; <code>events</code> adds your own triggers to the same header.</em></p>
+</section>
+</div>
+<div id="7897604d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.763764+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.767219+00:00&quot;,&quot;total&quot;:0.00345863800000501}}" data-execution_count="50">
+<hr>
+<p><a href="https://github.com/vedicreader/fhoat/blob/main/fhoat/components.py#L244" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="oattoast" class="level3">
+<h3 class="anchored" data-anchor-id="oattoast">OatToast</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> OatToast(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    msg, title:NoneType<span class="op">=</span><span class="va">None</span>, variant:NoneType<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>opts</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.xml.FT:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A script that shows a toast: <code>variant</code> info|success|warning|danger; opts <code>placement</code>, <code>duration</code>.</em></p>
+</section>
+</div>
+<div id="a81fad7b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> to_xml(OatToast(<span class="st">'&lt;/script&gt;&lt;script&gt;alert(1)&lt;/script&gt;'</span>))</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'&lt;/script&gt;&lt;script&gt;'</span> <span class="kw">not</span> <span class="kw">in</span> s.removesuffix(<span class="st">'&lt;/script&gt;'</span>) <span class="kw">and</span> <span class="st">'</span><span class="ch">\\</span><span class="st">u003c/script'</span> <span class="kw">in</span> s</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> json.loads(toast_hdr(<span class="st">'Saved'</span>, <span class="st">'Done'</span>, <span class="st">'error'</span>, events<span class="op">=</span><span class="bu">dict</span>(refresh<span class="op">=</span><span class="dv">1</span>)).v)[<span class="st">'toast'</span>][<span class="st">'variant'</span>] <span class="op">==</span> <span class="st">'danger'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="2aa1f1cf" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-27T00:18:03.767914+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-27T00:18:03.832439+00:00&quot;,&quot;total&quot;:0.06452985699999658}}" data-execution_count="51">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fhoat.core <span class="im">import</span> fast_app</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fasthtml.toaster <span class="im">import</span> add_toast</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>app, rt <span class="op">=</span> fast_app()</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>setup_oat_toasts(app)</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="at">@rt</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> index(sess): add_toast(sess, <span class="st">'Hi'</span>, <span class="st">'success'</span>)<span class="op">;</span> <span class="cf">return</span> P(<span class="st">'x'</span>)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> starlette.testclient <span class="im">import</span> TestClient</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'"variant": "success"'</span> <span class="kw">in</span> TestClient(app).get(<span class="st">'/'</span>).text</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/vedicreader\.github\.io\/fhoat");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/vedicreader/fhoat/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
