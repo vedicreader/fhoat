@@ -14,7 +14,6 @@ keywords = ["fasthtml", "oat", "css", "htmx", "ui", "nbdev"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Framework :: FastHTML",
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
     "Development Status :: 3 - Alpha",
 ]
